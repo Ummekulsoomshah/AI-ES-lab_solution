@@ -1,0 +1,54 @@
+
+def diagnose_patient(fever=None, cough=None, sore_throat=None,
+                     chest_pain=None, fatigue=None):
+    """
+    Returns medical diagnosis based on symptoms.
+    """
+    actions = [] 
+
+    print("\n Evaluating Symptoms:")
+    print(f"  Fever: {fever}")
+    print(f"  Cough: {cough}")
+    print(f"  Sore Throat: {sore_throat}")
+    print(f"  Chest Pain: {chest_pain}")
+    print(f"  Fatigue: {fatigue}")
+
+    if chest_pain:
+        if fever or fatigue:
+            actions.append("⚠️ URGENT: Possible pneumonia – seek medical help.")
+        else:
+            actions.append("⚠️ Warning: Chest pain detected – consult a doctor.")
+    
+    if fever:
+        if cough and sore_throat:
+            actions.append(" Possible Flu.")
+        elif cough and fatigue:
+            actions.append("Viral infection likely.")
+    
+    if fever and cough and fatigue:
+        actions.append(" COVID-like symptoms – get tested.")
+    
+    if cough and not fever:
+        if sore_throat:
+            actions.append(" Possible throat infection.")
+        else:
+            actions.append(" Mild cough – monitor symptoms.")
+    
+    if not any([fever, cough, sore_throat, chest_pain, fatigue]):
+        actions.append(" No illness detected.")
+    
+    return actions
+
+
+if __name__ == "__main__":
+    print(" Medical Diagnosis System Activated\n")
+
+    print(diagnose_patient(fever=True, cough=True, sore_throat=True))
+
+    print(diagnose_patient(fever=True, chest_pain=True))
+
+    print(diagnose_patient(cough=True))
+
+    print(diagnose_patient(fever=True, cough=True, fatigue=True))
+
+    print(diagnose_patient())
